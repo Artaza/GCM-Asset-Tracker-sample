@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Client</string>
+    <!--Project Number-->
+    <string name="gcm_defaultSenderId">865859779858</string>
+    <string name="api_key">AIzaSyAOMjYH2MBjQ9p932vTWOQjoZO4vl-EXKc</string>
+    <string name="server_url">https://android.googleapis.com/gcm/send</string>
+</resources>
