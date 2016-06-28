@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView.getMapAsync(this);
 
         // Set the topic to send to
-        gcmMessage.to = "/topics/" + Preferences.TO;
+        gcmMessage.setTo("/topics/" + Preferences.TO);
         setTitle(Preferences.TO);
     }
 
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void pollLocationTransmission(final long locationUpdatesInterval) {
         handler.post(new Runnable() {
             public void run() {
-                if (gcmMessage.data.Waypoints.size() > 0) {
+                if (gcmMessage.getData().getWaypoints().size() > 0) {
 
                     //prepare request to send gcm message using ok-http
                     request = new Request.Builder()
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     });
 
                     //clear the current ArrayList
-                    gcmMessage.data.Waypoints.clear();
+                    gcmMessage.getData().getWaypoints().clear();
                 }
                 //Re-queue update every "locationUpdatesInterval" milliseconds
                 handler.postDelayed(this, locationUpdatesInterval);
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // New location has now been determined
         if (previousLocation.getLatitude() != location.getLatitude() &&
                 previousLocation.getLongitude() != location.getLongitude()) {
-            gcmMessage.data.Waypoints.add(new Waypoint(location.getLatitude(), location.getLongitude()));
+            gcmMessage.getData().getWaypoints().add(new Waypoint(location.getLatitude(), location.getLongitude()));
             previousLocation = location;
         }
     }

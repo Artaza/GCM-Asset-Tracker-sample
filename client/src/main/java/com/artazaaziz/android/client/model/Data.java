@@ -13,5 +13,13 @@ public class Data {
 
     @SerializedName("Waypoints")
     @Expose
-    public List<Waypoint> Waypoints = new ArrayList<>();
+    private List<Waypoint> Waypoints = new ArrayList<>();
+
+    public List<Waypoint> getWaypoints() {
+        return Waypoints;
+    }
+
+    public void setWaypoints(List<Waypoint> waypoints) {
+        Waypoints = waypoints;
+    }
 }

@@ -17,13 +17,13 @@ public class Data implements Parcelable {
 
     @SerializedName("Waypoints")
     @Expose
-    public List<Waypoint> Waypoints = new ArrayList<>();
+    private List<Waypoint> Waypoints = new ArrayList<>();
     private List<LatLng> latLngList = new ArrayList<>();
 
     public List<LatLng> convertAllWaypointsToLatLng() {
-        if (this.Waypoints != null) {
+        if (null != this.Waypoints) {
             for (Waypoint w : this.Waypoints) {
-                latLngList.add(new LatLng(Double.valueOf(w.latitude), Double.valueOf(w.longitude)));
+                latLngList.add(new LatLng(Double.valueOf(w.getLatitude()), Double.valueOf(w.getLongitude())));
             }
         }
         return latLngList;

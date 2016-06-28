@@ -10,10 +10,10 @@ public class Waypoint {
 
     @SerializedName("latitude")
     @Expose
-    public String latitude;
+    private String latitude;
     @SerializedName("longitude")
     @Expose
-    public String longitude;
+    private String longitude;
 
     public Waypoint(double latitude, double longitude) {
         this.latitude = String.valueOf(latitude);

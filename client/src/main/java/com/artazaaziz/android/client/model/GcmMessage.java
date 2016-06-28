@@ -10,11 +10,26 @@ public class GcmMessage {
 
     @SerializedName("to")
     @Expose
-    public String to;
+    private String to;
     @SerializedName("data")
     @Expose
-    public Data data = new Data();
+    private Data data = new Data();
 
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
 }
 
 
