@@ -17,7 +17,6 @@ import com.artazaaziz.android.assettracker.ui.anim.LatLngInterpolator;
 import com.artazaaziz.android.assettracker.ui.anim.MarkerAnimation;
 import com.artazaaziz.android.assettracker.util.Preferences;
 import com.artazaaziz.android.assettracker.util.Utils;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     BroadcastReceiver mReceiver;
     String[] topics = Preferences.TOPICS;
-    Polyline polyline;
+    //Polyline polyline;
     float[] colorHSV;
     private LatLng[] latLngArray = new LatLng[]{};
     private List<LatLng> latLngList = new ArrayList<>();
@@ -45,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ArrayList<Marker> markers = new ArrayList<>();
     private HashMap<String, Integer> colors = new HashMap<>();
     private HashMap<String, LatLng> lastMarkerPositions = new HashMap<>();
+    private HashMap<String, Polyline> polylines = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +80,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             //hue, saturation, value for polyline
             colorHSV = new float[]{hue, 1, 0.65f};
             colors.put(asset,Color.HSVToColor(125, colorHSV));
+            polylines.put(asset, null);
         }
     }
 
     @Override
     public void onMapLoaded() {
-        mGoogleMap.animateCamera(CameraUpdateFactory
-                .newLatLngZoom(new LatLng(25.088475048737795, 55.14925092458725), 13));
+       // mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(25.088475048737795, 55.14925092458725), 13));
 
     }
 
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         //set the last position we got from a previous message
                         LatLng lastPos = lastMarkerPositions.get(asset);
 
-                        //if we have a last position form previous message then add it into current
+                        //if we have a last position from a previous message then add it into current
                         //list to include in current animation; this reduces jumpiness from one
                         //message's data to another caused by network lag or delay
                         if (lastPos != null) {
@@ -133,14 +133,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         //set last position
                         lastMarkerPositions.put(asset, latLngList.get(latLngList.size() - 1));
 
-                        //remove previous polyline
-                        if (polyline != null) {
-                            polyline.remove();
-                        }
 
                         new Handler().post(new Runnable() {
                             @Override
                             public void run() {
+                                Polyline polyline = polylines.get(asset);
+                                //remove previous polyline
+                                if (polyline != null) {
+                                    polyline.remove();
+                                }
 
                                 latLngArray = latLngList.toArray(new LatLng[latLngList.size()]);
 
@@ -150,9 +151,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         latLngArray);
 
                                 //draw the polyline displaying the route of the marker
-                                polyline = mGoogleMap.addPolyline(new PolylineOptions()
+                                polyline =mGoogleMap.addPolyline(new PolylineOptions()
                                         .add(latLngArray)
                                         .color(colors.get(asset)));
+                                polylines.put(asset, polyline);
 
                             }
                         });
