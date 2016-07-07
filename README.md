@@ -2,12 +2,12 @@
 
 ![](screenshots/demo.gif)
 
-Client module sends the location data.
+Use the client module(client app) to send the location data.
 
-Server module receives the location data.
+Use the server module(server app) to receive the location data from your assets(client apps).
 
-Warning: Both apps assume the latest google play services are installed.
+*Add your API key and project number to `keys.xml`*
 
-API and project keys are currently embedded for testing purposes, please do not abuse.
+Current version of play services is `9.0.2`
 
-:)
+*:)*
