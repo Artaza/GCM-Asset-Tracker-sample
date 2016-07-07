@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    TODO: Before you run this application, you need a Google Maps API key and a Project number from Google Developers Console.
+    Replace the "api_key" string with your API key
+    Replace the "gcm_defaultSenderId" string with your project number
+    -->
+    <string name="api_key" templateMergeStrategy="preserve" translatable="false">your_api_key</string>
+    <string name="gcm_defaultSenderId" templateMergeStrategy="preserve" translatable="false">your_project_number</string>
+</resources>
